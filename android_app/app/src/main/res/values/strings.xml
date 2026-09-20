@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Guardian</string>
+    <string name="accessibility_service_label">Guardian Real-Time Interception Shield</string>
+    <string name="accessibility_service_description">Proactively intercepts malicious URLs, deceptive UPI payment intents, and scam dialer events before user damage occurs.</string>
+</resources>

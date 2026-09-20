@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+
+# SQLite
+*.db
+*.sqlite
+*.sqlite3
+
+# Node
+node_modules/
+.next/
+out/
+dist/
+build/
+.turbo/
+.vercel/
+
+# Android
+.gradle/
+android_app/build/
+android_app/app/build/
+android_app/.gradle/
+local.properties
+*.apk
+!guardian-ai-debug.apk
+
+# Env & editor
+.env
+.env.local
+.env.*.local
+.DS_Store
+.idea/
+.vscode/
+*.log
