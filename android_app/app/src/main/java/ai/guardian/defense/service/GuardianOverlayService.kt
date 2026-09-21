@@ -185,7 +185,11 @@ class GuardianOverlayService : Service() {
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .build()
 
-        startForeground(1001, notification)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            startForeground(1001, notification, android.content.pm.ServiceInfo.FOREGROUND_SERVICE_TYPE_SPECIAL_USE)
+        } else {
+            startForeground(1001, notification)
+        }
     }
 
     override fun onDestroy() {

@@ -10,7 +10,7 @@ from __future__ import annotations
 import json
 import sqlite3
 from contextlib import contextmanager
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Iterator, List
 
@@ -70,7 +70,7 @@ def save_analysis(content_preview: str, result: AnalysisResult) -> None:
                 json.dumps(signal_ids),
                 json.dumps(evidence),
                 content_preview[:240],
-                datetime.utcnow().isoformat(timespec="seconds") + "Z",
+                datetime.now(timezone.utc).isoformat(timespec="seconds") + "Z",
             ),
         )
 

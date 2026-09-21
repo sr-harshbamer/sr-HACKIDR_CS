@@ -184,7 +184,7 @@ class NotificationRepository private constructor(private val appContext: Context
                 putExtra("EXTRA_RISK_LEVEL", verdict.riskLevel)
                 putStringArrayListExtra("EXTRA_REASONS", ArrayList(verdict.reasons))
             }
-            appContext.startService(intent)
+            androidx.core.content.ContextCompat.startForegroundService(appContext, intent)
         } catch (e: Exception) {
             // Ignored if background service start restriction or missing permission
         }

@@ -536,8 +536,9 @@ async def websocket_events_endpoint(websocket: WebSocket):
 async def download_apk_endpoint():
     """Direct downloadable APK endpoint for Android devices."""
     candidates = [
-        os.path.abspath(os.path.join(os.path.dirname(__file__), "../static/guardian-ai-debug.apk")),
-        os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../frontend/public/download/guardian-ai-debug.apk")),
+        os.path.abspath(os.path.join(os.path.dirname(__file__), "static/guardian-ai-debug.apk")),
+        os.path.abspath(os.path.join(os.path.dirname(__file__), "../../frontend/public/download/guardian-ai-debug.apk")),
+        os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../guardian-ai-debug.apk")),
     ]
     for path in candidates:
         if os.path.exists(path):

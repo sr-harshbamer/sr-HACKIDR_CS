@@ -86,12 +86,34 @@ class MainActivity : ComponentActivity() {
             val verdict = LocalRiskEngine.analyzeUrl(uri.toString())
             if (verdict.riskLevel == "CRITICAL" || verdict.riskLevel == "HIGH") {
                 triggerOverlay(verdict.title, uri.toString(), verdict.riskLevel, verdict.reasons)
+            } else {
+                forwardSafeIntent(uri)
             }
         } else if (scheme == "upi") {
             val verdict = LocalRiskEngine.analyzeUpiPayload(uri.toString())
             if (verdict.riskLevel == "CRITICAL" || verdict.riskLevel == "HIGH") {
                 triggerOverlay(verdict.title, uri.toString(), verdict.riskLevel, verdict.reasons)
+            } else {
+                forwardSafeIntent(uri)
             }
+        }
+    }
+
+    private fun forwardSafeIntent(uri: Uri) {
+        try {
+            val viewIntent = Intent(Intent.ACTION_VIEW, uri).apply {
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            }
+            val resolveInfos = packageManager.queryIntentActivities(viewIntent, 0)
+            val nonSelfTarget = resolveInfos.firstOrNull { it.activityInfo.packageName != packageName }
+            if (nonSelfTarget != null) {
+                viewIntent.setPackage(nonSelfTarget.activityInfo.packageName)
+                startActivity(viewIntent)
+            } else {
+                Toast.makeText(this, "Verified safe: $uri", Toast.LENGTH_SHORT).show()
+            }
+        } catch (e: Exception) {
+            Toast.makeText(this, "Unable to dispatch external intent", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -178,7 +200,7 @@ class MainActivity : ComponentActivity() {
             putExtra("EXTRA_RISK_LEVEL", riskLevel)
             putStringArrayListExtra("EXTRA_REASONS", ArrayList(reasons))
         }
-        startService(intent)
+        androidx.core.content.ContextCompat.startForegroundService(this, intent)
     }
 }
 

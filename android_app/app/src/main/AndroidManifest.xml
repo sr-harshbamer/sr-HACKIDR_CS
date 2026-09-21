@@ -68,7 +68,11 @@
         <service
             android:name=".service.GuardianOverlayService"
             android:exported="false"
-            android:foregroundServiceType="specialUse" />
+            android:foregroundServiceType="specialUse">
+            <property
+                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="Real-time security threat overlay and scam intervention" />
+        </service>
 
         <!-- 3. In-Call Audio & Scam Trajectory Service -->
         <service

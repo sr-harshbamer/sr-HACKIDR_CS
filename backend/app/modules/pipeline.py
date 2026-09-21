@@ -6,7 +6,7 @@ into a single `run_analysis` call used by the API layer.
 """
 from __future__ import annotations
 
-from datetime import datetime
+from datetime import datetime, timezone
 
 from .block_report_guidance import build_block_report_guidance
 from .explanation_engine import (
@@ -82,5 +82,5 @@ def run_analysis(req: AnalysisRequest) -> AnalysisResult:
         safe_actions=safe_actions,
         block_report_guidance=block_report,
         highlighted_phrases=highlights,
-        analyzed_at=datetime.utcnow().isoformat(timespec="seconds") + "Z",
+        analyzed_at=datetime.now(timezone.utc).isoformat(timespec="seconds") + "Z",
     )
